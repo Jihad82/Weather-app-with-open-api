@@ -101,6 +101,7 @@ class _MainScreenState extends State<MainScreen> {
 }
 
 // Weather Screen (Home)
+// Weather Screen (Home)
 class WeatherScreen extends StatefulWidget {
   final String city;
   final String? errorMessage;
@@ -189,17 +190,18 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 children: [
                   Image.network(
                     'https:${_weatherData!['current']['condition']['icon']}',
-                    width: 50,
+                    width: 30,
                   ),
-                  SizedBox(width: 10),
+                  const SizedBox(width: 10),
                   Text(
                     _weatherData!['current']['condition']['text'],
-                    style: TextStyle(fontSize: 20, color: Colors.white),
+                    style: const TextStyle(fontSize: 15, color: Colors.white),
                   ),
                 ],
               ),
               SizedBox(height: 20),
-              Expanded(
+              SizedBox(
+                height: 150, // Set a fixed height for the ListView
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: _weatherData!['forecast']['forecastday'][0]['hour'].length,
@@ -207,12 +209,44 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     var hourData = _weatherData!['forecast']['forecastday'][0]['hour'][index];
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Text('${hourData['time'].substring(11)}', style: TextStyle(color: Colors.white)),
-                          Image.network('https:${hourData['condition']['icon']}', width: 30),
-                          Text('${hourData['temp_c']}°', style: TextStyle(color: Colors.white)),
-                        ],
+                      child: Container(
+                        width: 70,
+                        height: 30,
+                        padding: const EdgeInsets.all(12.0),
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(50),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 10,
+                              offset: Offset(0, 5),
+                            ),
+                          ],
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.3),
+                            width: 1.5,
+                          ),
+                        ),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text(
+                              '${hourData['time'].substring(11)}',
+                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                            ),
+                            SizedBox(height: 5),
+                            Image.network(
+                              'https:${hourData['condition']['icon']}',
+                              width: 30,
+                            ),
+                            SizedBox(height: 5),
+                            Text(
+                              '${hourData['temp_c']}°',
+                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+                            ),
+                          ],
+                        ),
                       ),
                     );
                   },
@@ -226,6 +260,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
     );
   }
 }
+
 
 // Search Screen
 class SearchScreen extends StatefulWidget {
@@ -275,45 +310,37 @@ class _SearchScreenState extends State<SearchScreen> {
         title: Text('Search Weather'),
         backgroundColor: Colors.blueAccent,
       ),
-      body: Column(
-        children: [
-          Padding(
-            padding: const EdgeInsets.all(16.0),
-            child: TextField(
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          children: [
+            TextField(
               controller: _controller,
               decoration: InputDecoration(
-                filled: true,
-                fillColor: Colors.white.withOpacity(0.7),
-                hintText: 'Enter city name...',
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(30),
-                  borderSide: BorderSide.none,
-                ),
-                contentPadding: EdgeInsets.symmetric(horizontal: 20),
+                hintText: 'Enter city name',
                 suffixIcon: IconButton(
                   icon: Icon(Icons.search),
-                  onPressed: () => _searchWeather(_controller.text),
+                  onPressed: () {
+                    _searchWeather(_controller.text);
+                  },
                 ),
               ),
             ),
-          ),
-          _loading
-              ? CircularProgressIndicator()
-              : _errorMessage.isNotEmpty
-              ? Center(
-            child: Text(
+            SizedBox(height: 10),
+            _loading
+                ? CircularProgressIndicator()
+                : Text(
               _errorMessage,
               style: TextStyle(color: Colors.red),
             ),
-          )
-              : Center(child: Text('Search for a city')),
-        ],
+          ],
+        ),
       ),
     );
   }
 }
 
-// Settings Screen (placeholder)
+// Settings Screen
 class SettingsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {

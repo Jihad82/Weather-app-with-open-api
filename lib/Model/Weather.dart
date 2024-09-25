@@ -16,7 +16,6 @@ class WeatherModel {
         : null;
   }
 
-
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     if (this.location != null) {
@@ -90,8 +89,8 @@ class Current {
   String? windDir;
   int? pressureMb;
   double? pressureIn;
-  double? precipMm;
-  double? precipIn;
+  int? precipMm;
+  int? precipIn;
   int? humidity;
   int? cloud;
   double? feelslikeC;

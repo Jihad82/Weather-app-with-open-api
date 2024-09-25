@@ -2,9 +2,8 @@ import 'package:flutter/material.dart';
 import 'dart:convert';
 import 'package:http/http.dart' as http;
 import 'package:crystal_navigation_bar/crystal_navigation_bar.dart';
-import 'package:iconly/iconly.dart';
 
-const String baseUrl = "https://api.weatherapi.com/v1/forecast.json?key=3385ff506c1b450182c152917242509";
+const String baseUrl = "http://api.weatherapi.com/v1/forecast.json?key=3385ff506c1b450182c152917242509";
 
 void main() {
   runApp(MyApp());
@@ -127,7 +126,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
       _loading = true;
     });
     try {
-      final response = await http.get(Uri.parse('$baseUrl&q=$city&days=1&aqi=no&alerts=no'));
+      final response = await http.get(Uri.parse('$baseUrl&q=$city&days=7&aqi=no&alerts=no'));
       if (response.statusCode == 200) {
         setState(() {
           _weatherData = json.decode(response.body);
@@ -161,7 +160,9 @@ class _WeatherScreenState extends State<WeatherScreen> {
     return Scaffold(
       backgroundColor: Colors.blueAccent,
       body: SafeArea(
+
         child: Padding(
+
           padding: const EdgeInsets.all(16.0),
           child: _loading
               ? const Center(child: CircularProgressIndicator())
@@ -179,6 +180,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                 _weatherData!['location']['name'],
                 style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
               ),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -193,16 +195,23 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   ),
                 ],
               ),
-
               const SizedBox(height: 10),
-                  Text(
-                    _weatherData!['current']['condition']['text'],
-                    style: const TextStyle(fontSize: 15, color: Colors.white),
-                  ),
-
-              const SizedBox(height: 20),
+              Text(
+                _weatherData!['current']['condition']['text'],
+                style: const TextStyle(fontSize: 15, color: Colors.white),
+              ),
+              const SizedBox(height: 40),
+              const Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("Hourly Forecast",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold, color: Colors.white),)
+                  ],
+                ),
+              ),
+              // Hourly Forecast
               SizedBox(
-                height: 150, // Set a fixed height for the ListView
+                height: 150, // Fixed height for hourly forecast
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   itemCount: _weatherData!['forecast']['forecastday'][0]['hour'].length,
@@ -253,6 +262,60 @@ class _WeatherScreenState extends State<WeatherScreen> {
                   },
                 ),
               ),
+              const SizedBox(height: 20),
+              const Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text("7-day forecast",style: TextStyle(fontSize: 25,fontWeight: FontWeight.bold, color: Colors.white),)
+                  ],
+                ),
+              ),
+              // 7-day forecast
+              Expanded(
+                child: ListView.builder(
+                  itemCount: _weatherData!['forecast']['forecastday'].length,
+                  itemBuilder: (context, index) {
+                    var dayData = _weatherData!['forecast']['forecastday'][index];
+                    return Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Container(
+                        height: 80,
+                        decoration: BoxDecoration(
+                          color: Colors.white.withOpacity(0.2),
+                          borderRadius: BorderRadius.circular(10),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black.withOpacity(0.1),
+                              blurRadius: 10,
+                              offset: const Offset(0, 5),
+                            ),
+                          ],
+                          border: Border.all(
+                            color: Colors.white.withOpacity(0.3),
+                            width: 1,
+                          ),
+                        ),
+                        margin: const EdgeInsets.symmetric(vertical: 5),
+                        child: ListTile(
+                          title: Text(
+                            dayData['date'],
+                            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                          ),
+                          subtitle: Text(
+                            '${dayData['day']['condition']['text']} - Max: ${dayData['day']['maxtemp_c']}°, Min: ${dayData['day']['mintemp_c']}°',
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                          leading: Image.network(
+                            'https:${dayData['day']['condition']['icon']}',
+                            width: 50,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ],
           )
               : const Center(child: Text('No weather data available')),
@@ -261,6 +324,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
     );
   }
 }
+
 
 
 // Search Screen

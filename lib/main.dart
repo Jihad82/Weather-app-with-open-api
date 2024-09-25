@@ -164,12 +164,12 @@ class _WeatherScreenState extends State<WeatherScreen> {
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: _loading
-              ? Center(child: CircularProgressIndicator())
+              ? const Center(child: CircularProgressIndicator())
               : widget.errorMessage != null
               ? Center(
             child: Text(
               widget.errorMessage!,
-              style: TextStyle(color: Colors.red, fontSize: 20),
+              style: const TextStyle(color: Colors.red, fontSize: 20),
             ),
           )
               : _weatherData != null
@@ -177,29 +177,30 @@ class _WeatherScreenState extends State<WeatherScreen> {
             children: [
               Text(
                 _weatherData!['location']['name'],
-                style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
+                style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold, color: Colors.white),
               ),
-              SizedBox(height: 10),
-              Text(
-                '${_weatherData!['current']['temp_c']}°',
-                style: TextStyle(fontSize: 80, fontWeight: FontWeight.bold, color: Colors.white),
-              ),
-              SizedBox(height: 10),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Image.network(
                     'https:${_weatherData!['current']['condition']['icon']}',
-                    width: 30,
+                    width: 100,
                   ),
                   const SizedBox(width: 10),
+                  Text(
+                    '${_weatherData!['current']['temp_c']}°',
+                    style: const TextStyle(fontSize: 50, fontWeight: FontWeight.bold, color: Colors.white),
+                  ),
+                ],
+              ),
+
+              const SizedBox(height: 10),
                   Text(
                     _weatherData!['current']['condition']['text'],
                     style: const TextStyle(fontSize: 15, color: Colors.white),
                   ),
-                ],
-              ),
-              SizedBox(height: 20),
+
+              const SizedBox(height: 20),
               SizedBox(
                 height: 150, // Set a fixed height for the ListView
                 child: ListView.builder(
@@ -210,7 +211,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
                     return Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Container(
-                        width: 70,
+                        width: 65,
                         height: 30,
                         padding: const EdgeInsets.all(12.0),
                         decoration: BoxDecoration(
@@ -220,12 +221,12 @@ class _WeatherScreenState extends State<WeatherScreen> {
                             BoxShadow(
                               color: Colors.black.withOpacity(0.1),
                               blurRadius: 10,
-                              offset: Offset(0, 5),
+                              offset: const Offset(0, 5),
                             ),
                           ],
                           border: Border.all(
                             color: Colors.white.withOpacity(0.3),
-                            width: 1.5,
+                            width: 1,
                           ),
                         ),
                         child: Column(
@@ -233,17 +234,17 @@ class _WeatherScreenState extends State<WeatherScreen> {
                           children: [
                             Text(
                               '${hourData['time'].substring(11)}',
-                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+                              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
                             ),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Image.network(
                               'https:${hourData['condition']['icon']}',
                               width: 30,
                             ),
-                            SizedBox(height: 5),
+                            const SizedBox(height: 5),
                             Text(
                               '${hourData['temp_c']}°',
-                              style: TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
+                              style: const TextStyle(color: Colors.white, fontWeight: FontWeight.w500),
                             ),
                           ],
                         ),
@@ -254,7 +255,7 @@ class _WeatherScreenState extends State<WeatherScreen> {
               ),
             ],
           )
-              : Center(child: Text('No weather data available')),
+              : const Center(child: Text('No weather data available')),
         ),
       ),
     );
@@ -307,7 +308,7 @@ class _SearchScreenState extends State<SearchScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Search Weather'),
+        title: const Text('Search Weather'),
         backgroundColor: Colors.blueAccent,
       ),
       body: Padding(
@@ -319,19 +320,19 @@ class _SearchScreenState extends State<SearchScreen> {
               decoration: InputDecoration(
                 hintText: 'Enter city name',
                 suffixIcon: IconButton(
-                  icon: Icon(Icons.search),
+                  icon: const Icon(Icons.search),
                   onPressed: () {
                     _searchWeather(_controller.text);
                   },
                 ),
               ),
             ),
-            SizedBox(height: 10),
+            const SizedBox(height: 10),
             _loading
-                ? CircularProgressIndicator()
+                ? const CircularProgressIndicator()
                 : Text(
               _errorMessage,
-              style: TextStyle(color: Colors.red),
+              style: const TextStyle(color: Colors.red),
             ),
           ],
         ),
@@ -346,10 +347,10 @@ class SettingsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Settings'),
+        title: const Text('Settings'),
         backgroundColor: Colors.blueAccent,
       ),
-      body: Center(
+      body: const Center(
         child: Text('Settings Screen'),
       ),
     );

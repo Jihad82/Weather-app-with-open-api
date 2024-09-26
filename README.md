@@ -12,11 +12,14 @@ A simple and elegant weather application built with Flutter that provides users 
 
 ## Screenshots
 
-<div style="display: flex; justify-content: space-around;">
-    <img src="https://github.com/user-attachments/assets/e2d6cc4e-bba7-4c64-a679-43279639582f" alt="Image 1" style="width: 30%; height: auto;"/>
-    <img src="https://github.com/user-attachments/assets/7776898a-1b1b-41f9-a056-4ed61d056718" alt="Image 2" style="width: 30%; height: auto;"/>
-    <img src="https://github.com/user-attachments/assets/bf9431e9-cb07-4567-b3f0-c7ea3b2fd160" alt="Image 3" style="width: 30%; height: auto;"/>
-</div>
+| Image 1 | Image 2 | Image 3 | Video |
+|---------|---------|---------|-------|
+| ![Image 1](https://github.com/user-attachments/assets/e2d6cc4e-bba7-4c64-a679-43279639582f) | ![Image 2](https://github.com/user-attachments/assets/7776898a-1b1b-41f9-a056-4ed61d056718) | ![Image 3](https://github.com/user-attachments/assets/bf9431e9-cb07-4567-b3f0-c7ea3b2fd160) | [Video](https://github.com/user-attachments/assets/9e4e96bb-8506-48e4-8707-83c7926fdf2f) |
+
+
+
+
+
 
 ## Download
 

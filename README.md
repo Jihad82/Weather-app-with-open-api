@@ -40,16 +40,12 @@ To install the app, follow these steps:
 
 ## Technologies Used
 
-- **Flutter:** A UI toolkit for building natively compiled applications for mobile, web, and desktop from a single codebase.
-- **OpenWeatherMap API:** Provides weather data for cities worldwide.
+- **Flutter**
+- **OpenWeatherMap API** 
 
 ## Contributing
 
 Contributions are welcome! If you have suggestions or improvements, please fork the repository and submit a pull request.
-
-## License
-
-This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
 ## Acknowledgements
 
